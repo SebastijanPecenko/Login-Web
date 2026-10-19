@@ -298,34 +298,44 @@
             </a>
         </p>
     </div>
-    <script>
-        const passwordButtons =
-            document.querySelectorAll(".show-password");
-        passwordButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                const targetId =
-                    button.getAttribute("data-target");
-                const passwordInput =
-                    document.getElementById(targetId);
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                } else {
-                    passwordInput.type = "password";
-                }
-            });
-        });
-        const registerForm =
-            document.getElementById("registerForm");
-        registerForm.addEventListener("submit", function(event) {
-            const password =
-                document.getElementById("password").value;
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-            if (password !== confirmPassword) {
-                event.preventDefault();
-                alert("Passwords do not match!");
-            }
-        });
-    </script>
+    
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		const passwordButtons = document.querySelectorAll(".show-password");
+
+		passwordButtons.forEach(button => {
+			button.addEventListener("click", function () {
+				const targetId = button.getAttribute("data-target");
+				const passwordInput = document.getElementById(targetId);
+
+				if (passwordInput.type === "password") {
+					passwordInput.type = "text";
+				} else {
+					passwordInput.type = "password";
+				}
+			});
+		});
+
+		const registerForm = document.getElementById("registerForm");
+		registerForm.addEventListener("submit", function(event) {
+			event.preventDefault();
+			const password = document.getElementById("password").value;
+			const confirmPassword = document.getElementById("confirmPassword").value;
+			if (password !== confirmPassword) {
+				Swal.fire({
+					title: "Error!",
+					text: "Passwords are not matching.",
+					icon: "error",
+				});
+				return;
+			}
+			Swal.fire({
+				title: "Registration successful!",
+				text: "Start your journey",
+				icon: "success",
+			});
+		});
+	</script>
 </body>
 </html>
